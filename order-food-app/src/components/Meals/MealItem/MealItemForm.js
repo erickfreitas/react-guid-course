@@ -19,7 +19,7 @@ const MealItemForm = props => {
         setAmountIsValid(false);
         return;
     }
-
+    
     props.onAddToCart(enteredAmountNumber);
   };
 
