@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import classes from './DemoList.module.css';
 
 const DemoList = (props) => {
-  const sortedList = props.items.sort((a, b) => a - b);
+
+  const { items } = props;
+  //avoiding that this sorting function executes every time the component is redenred
+  const sortedList = useMemo(() => {
+    console.log('Itens sorted!');
+    return items.sort((a, b) => a - b);
+  }, [items]);
+  
+  console.log('DemoList RUNNIG!');
 
   return (
     <div className={classes.list}>
