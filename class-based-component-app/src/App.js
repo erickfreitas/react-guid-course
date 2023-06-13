@@ -1,3 +1,4 @@
+import ErrorBoundary from './components/ErrorBoundary';
 import UserFinder from './components/UserFinder';
 import UsersContext from './store/users-context';
 
@@ -14,7 +15,9 @@ function App() {
 
   return (
     <UsersContext.Provider value={usersContext}>
-      <UserFinder />
+      <ErrorBoundary>
+        <UserFinder />
+      </ErrorBoundary>
     </UsersContext.Provider>
   );
 }
