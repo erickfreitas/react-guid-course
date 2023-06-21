@@ -1,36 +1,39 @@
 import useBasicInput from "../hooks/use-basicInput";
 
+const isNotEmpty = (value) => value.trim() !== '';
+const isEmail = (value) => value.includes('@');
+
 const BasicForm = (props) => {
   const {
-    value: enteredName,
-    isValid: enteredNameIsValid,
+    value: nameValue,
+    isValid: nameValueIsValid,
     hasError: nameInputHasError,
     inputChangeHandler: nameChangedHandler,
     inputBlurHandler: nameBlurHandler,
     reset: resetNameInput,
-  } = useBasicInput((value) => value.trim() !== "");
+  } = useBasicInput(isNotEmpty);
 
   const {
-    value: enteredLastName,
-    isValid: enteredLastNameIsValid,
+    value: lastNameValue,
+    isValid: lastNameValueIsValid,
     hasError: lastNameInputHasError,
-    inputChangeHandler: lastNameInputChangeHandler,
-    inputBlurHandler: lastNameInputBlurHandler,
+    inputChangeHandler: lastNameChangeHandler,
+    inputBlurHandler: lastNameBlurHandler,
     reset: resetLastNameInput,
-  } = useBasicInput((value) => value.trim() !== "");
+  } = useBasicInput(isNotEmpty);
 
   const {
-    value: enteredEmail,
-    isValid: enteredEmailIsValid,
+    value: emailValue,
+    isValid: emailValueIsValid,
     hasError: emailInputHasError,
     inputChangeHandler: emailChangedHandler,
     inputBlurHandler: emailBlurHandler,
     reset: resetEmailInput,
-  } = useBasicInput((value) => value.includes("@"));
+  } = useBasicInput(isEmail);
 
   let formIsValid = false;
 
-  if (enteredNameIsValid && enteredLastNameIsValid && enteredEmailIsValid) {
+  if (nameValueIsValid && lastNameValueIsValid && emailValueIsValid) {
     formIsValid = true;
   }
 
@@ -41,9 +44,9 @@ const BasicForm = (props) => {
       return;
     }
 
-    console.log(enteredName);
-    console.log(enteredLastName);
-    console.log(enteredEmail);
+    console.log(nameValue);
+    console.log(lastNameValue);
+    console.log(emailValue);
 
     resetNameInput();
     resetLastNameInput();
@@ -60,7 +63,7 @@ const BasicForm = (props) => {
             id="name"
             onChange={nameChangedHandler}
             onBlur={nameBlurHandler}
-            value={enteredName}
+            value={nameValue}
           />
           {nameInputHasError && (
             <p className="error-text">Please enter a valid name.</p>
@@ -71,9 +74,9 @@ const BasicForm = (props) => {
           <input
             type="text"
             id="lastname"
-            onChange={lastNameInputChangeHandler}
-            onBlur={lastNameInputBlurHandler}
-            value={enteredLastName}
+            onChange={lastNameChangeHandler}
+            onBlur={lastNameBlurHandler}
+            value={lastNameValue}
           />
           {lastNameInputHasError && (
             <p className="error-text">Please enter a valid last name.</p>
@@ -87,7 +90,7 @@ const BasicForm = (props) => {
           id="email"
           onChange={emailChangedHandler}
           onBlur={emailBlurHandler}
-          value={enteredEmail}
+          value={emailValue}
         />
         {emailInputHasError && (
           <p className="error-text">Please enter a valid e-mail.</p>
