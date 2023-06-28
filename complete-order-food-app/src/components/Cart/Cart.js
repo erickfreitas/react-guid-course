@@ -9,6 +9,7 @@ const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+  const [httpError, setHttpError] = useState();
   const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -38,7 +39,12 @@ const Cart = (props) => {
           orderedItems: cartCtx.items,
         }),
       }
-    );
+    ).catch(() => {
+      setHttpError("Something went wrong!");
+      setIsSubmitting(false);
+      setDidSubmit(true);
+      return;
+    });
 
     cartCtx.clearCart();
     setIsSubmitting(false);
@@ -87,6 +93,16 @@ const Cart = (props) => {
     </>
   );
 
+  const errorModalContent = (
+    <>
+      <p>{httpError}</p>
+      <div className={styles.actions}>
+        <button className={styles.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </>
+  );
   const submittingModalContent = <p>Sending order data...</p>;
   const didSubmitModalContent = (
     <>
@@ -101,9 +117,10 @@ const Cart = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      {!isSubmitting && !didSubmit && cartModalContent}
-      {isSubmitting && submittingModalContent}
-      {didSubmit && didSubmitModalContent}
+      {!isSubmitting && !didSubmit && !httpError && cartModalContent}
+      {isSubmitting && !httpError && submittingModalContent}
+      {didSubmit && !httpError && didSubmitModalContent}
+      {httpError && errorModalContent}
     </Modal>
   );
 };
