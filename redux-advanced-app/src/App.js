@@ -17,38 +17,8 @@ function App() {
 
   useEffect(() => {
     const sendCartData = async () => {
-      dispatch(
-        uiActions.showNotification({
-          status: "pending",
-          title: "Sending...",
-          message: "Sending cart data!",
-        })
-      );
 
-      const response = await fetch(
-        "https://movies-react-app-ebf33-default-rtdb.firebaseio.com/cart.json",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(cart),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Sending cart data failed!");
-      }
-
-      const responseData = await response.json();
-
-      dispatch(
-        uiActions.showNotification({
-          status: "success",
-          title: "Success!",
-          message: "Sent cart data successfully!",
-        })
-      );
+      
     };
 
     if (isInitial) {
