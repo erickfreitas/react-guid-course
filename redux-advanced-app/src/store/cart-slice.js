@@ -43,7 +43,7 @@ const cartSlice = createSlice({
   },
 });
 
-const sendCartData = (cart) => {
+export const sendCartData = (cart) => {
   return async (dispatch) => {
     dispatch(
       uiActions.showNotification({
@@ -53,30 +53,44 @@ const sendCartData = (cart) => {
       })
     );
 
-    const response = await fetch(
-      "https://movies-react-app-ebf33-default-rtdb.firebaseio.com/cart.json",
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(cart),
+    const sendRequest = async () => {
+      const response = await fetch(
+        "https://movies-react-app-ebf33-default-rtdb.firebaseio.com/cart.json",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(cart),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Sending cart data failed!");
       }
-    );
 
-    if (!response.ok) {
-      throw new Error("Sending cart data failed!");
+      const responseData = await response.json();
+    };
+
+    try {
+      await sendRequest();
+
+      dispatch(
+        uiActions.showNotification({
+          status: "success",
+          title: "Success!",
+          message: "Sent cart data successfully!",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: error.message,
+        })
+      );
     }
-
-    const responseData = await response.json();
-
-    dispatch(
-      uiActions.showNotification({
-        status: "success",
-        title: "Success!",
-        message: "Sent cart data successfully!",
-      })
-    );
   };
 };
 
