@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
 
-const Rootlayout = () => {
-  return(
+const RootLayout = () => {
+  return (
     <>
       <MainNavigation />
       <main>
         <Outlet />
       </main>
     </>
-  )
+  );
 };
 
-export default Rootlayout;
+export default RootLayout;
