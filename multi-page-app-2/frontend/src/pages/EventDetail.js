@@ -1,10 +1,10 @@
-import { useParams, useLoaderData, Link, json } from "react-router-dom";
+import { useParams, useRouteLoaderData, Link, json } from "react-router-dom";
 
 import EventItem from "../components/EventItem";
 
 const EventDetailPage = () => {
   const params = useParams();
-  const data = useLoaderData();
+  const data = useRouteLoaderData("event-detail");
 
   return (
     <>
