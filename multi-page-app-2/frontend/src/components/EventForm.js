@@ -1,8 +1,14 @@
-import { useNavigate, useNavigation, Form } from "react-router-dom";
+import {
+  useNavigate,
+  useNavigation,
+  Form,
+  useActionData,
+} from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 
 function EventForm({ method, event }) {
+  const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
 
@@ -15,6 +21,13 @@ function EventForm({ method, event }) {
   return (
     // <Form method='POST' action='/any-other-path' className={classes.form} >
     <Form method='POST' className={classes.form}>
+      {data && data.errors && (
+        <ul>
+          {Object.values(data.errors).map((error) => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      )}
       <p>
         <label htmlFor='title'>Title</label>
         <input
