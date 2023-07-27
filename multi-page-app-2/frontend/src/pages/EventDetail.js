@@ -38,7 +38,7 @@ export const loader = async ({ request, params }) => {
 };
 
 export const action = async ({ request, params }) => {
-  const response = fetch("http://localhost:8080/events/" + params.id, {
+  const response = await fetch("http://localhost:8080/events/" + params.id, {
     method: request.method,
   });
 
