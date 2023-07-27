@@ -9,7 +9,8 @@ function EventForm({ method, event }) {
   }
 
   return (
-    <Form className={classes.form} method='POST'>
+    // <Form method='POST' action='/any-other-path' className={classes.form} >
+    <Form method='POST' className={classes.form}>
       <p>
         <label htmlFor='title'>Title</label>
         <input
