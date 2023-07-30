@@ -1,11 +1,18 @@
-import { useRouteLoaderData } from "react-router-dom";
+import { Await, useRouteLoaderData } from "react-router-dom";
 
 import EventForm from "../components/EventForm";
+import { Suspense } from "react";
 
 const EditEventPage = () => {
-  const data = useRouteLoaderData("event-detail");
+  const { event } = useRouteLoaderData("event-detail");
 
-  return <EventForm method='PATCH' event={data.event} />;
+  return (
+    <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+      <Await resolve={event}>
+        {(loadedEvent) => <EventForm method='PATCH' event={loadedEvent} />}
+      </Await>
+    </Suspense>
+  );
 };
 
 export default EditEventPage;
