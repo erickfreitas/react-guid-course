@@ -1,16 +1,30 @@
+import { CORE_CONCEPTS } from './data';
+
+import Header from './components/Header';
+import CoreConcept from './components/CoreConcept';
+
 function App() {
   return (
     <div>
-      <header>
-        <img src="src/assets/react-core-concepts.png" alt="Stylized atom" />
-        <h1>React Essentials</h1>
-        <p>
-          Fundamental React concepts you will need for almost any app you are
-          going to build!
-        </p>
-      </header>
+      <Header />
       <main>
-        <h2>Time to get started!</h2>
+        <section id='core-concepts'>
+          <h2>Core Concepts</h2>
+          <ul>
+            {CORE_CONCEPTS.map((concept) => {
+              return (
+                <CoreConcept
+                  {...concept}
+                  key={concept.title}
+                  // title={concept.title}
+                  // alt={concept.title}
+                  // description={concept.description}
+                  // image={concept.image}
+                />
+              );
+            })}
+          </ul>
+        </section>
       </main>
     </div>
   );
