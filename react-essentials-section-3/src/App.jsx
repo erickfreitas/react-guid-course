@@ -53,6 +53,7 @@ function App() {
           <h2>Examples</h2>
           <menu>
             <TabButton
+              isSelected={selectedTopic === 'components'}
               onClick={() => {
                 handleClick('components');
               }}
@@ -60,6 +61,7 @@ function App() {
               Components
             </TabButton>
             <TabButton
+              isSelected={selectedTopic === 'jsx'}
               onClick={() => {
                 handleClick('jsx');
               }}
@@ -67,6 +69,7 @@ function App() {
               JSX
             </TabButton>
             <TabButton
+              isSelected={selectedTopic === 'props'}
               onClick={() => {
                 handleClick('props');
               }}
@@ -74,6 +77,7 @@ function App() {
               Props
             </TabButton>
             <TabButton
+              isSelected={selectedTopic === 'state'}
               onClick={() => {
                 handleClick('state');
               }}
