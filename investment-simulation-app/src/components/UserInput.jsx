@@ -1,15 +1,22 @@
 import { formatter } from '../util/investment';
 
 export default function UserInput({ parameters, onParameterChange }) {
+  function currencyFormat(num) {
+    let formattedNum = num.toFixed(2);
+    return formattedNum;
+  }
+
   return (
     <section id='user-input'>
       <div className='input-group'>
         <p>
           <label>Investimento Inicial</label>
           <input
-            type='number'
+            type='text'
             id='initial-investment'
-            value={parameters.initialInvestment}
+            value={formatter.format(
+              currencyFormat(parameters.initialInvestment)
+            )}
             onChange={(event) =>
               onParameterChange('initialInvestment', event.target.value)
             }
@@ -18,10 +25,12 @@ export default function UserInput({ parameters, onParameterChange }) {
         <p>
           <label>Investimento Anual</label>
           <input
-            type='number'
+            type='text'
             id='monthly-investment'
             className='input-with-select'
-            value={parameters.annualInvestment}
+            value={formatter.format(
+              currencyFormat(parameters.annualInvestment)
+            )}
             onChange={(event) =>
               onParameterChange('annualInvestment', event.target.value)
             }
@@ -54,6 +63,7 @@ export default function UserInput({ parameters, onParameterChange }) {
           <input
             type='number'
             id='period'
+            max={100}
             value={parameters.duration}
             onChange={(event) =>
               onParameterChange('duration', event.target.value)

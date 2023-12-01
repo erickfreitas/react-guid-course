@@ -22,9 +22,16 @@ function App() {
         ...parameters,
       };
 
-      let value = Number(
-        parameterValue.replace('R$ ', '').replace('.', '').replace(',', '')
-      );
+      let value = parameterValue;
+      if (parameterValue.includes('R$') || parameterValue.includes('.')) {
+        let value = Number(
+          parameterValue
+            .replace('R$ ', '')
+            .replace('.', '')
+            .replace('.', '')
+            .replace(',', '') / 100
+        );
+      }
 
       updatedParameters[parameterName] = value;
       return updatedParameters;
