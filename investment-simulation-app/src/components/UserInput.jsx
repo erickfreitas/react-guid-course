@@ -1,22 +1,6 @@
-import { useState } from 'react';
+import { formatter } from '../util/investment';
 
-export default function UserInput({ defaultParameters, onParameterChange }) {
-  const [parameters, setParameters] = useState(defaultParameters);
-
-  function handleParameterChange(propertyName, event) {
-    const propertyValue = Number(event.target.value);
-
-    setParameters(() => {
-      const updatedParameters = {
-        ...parameters,
-      };
-      updatedParameters[propertyName] = propertyValue;
-      return updatedParameters;
-    });
-
-    onParameterChange(propertyName, propertyValue);
-  }
-
+export default function UserInput({ parameters, onParameterChange }) {
   return (
     <section id='user-input'>
       <div className='input-group'>
@@ -27,7 +11,7 @@ export default function UserInput({ defaultParameters, onParameterChange }) {
             id='initial-investment'
             value={parameters.initialInvestment}
             onChange={(event) =>
-              handleParameterChange('initialInvestment', event)
+              onParameterChange('initialInvestment', event.target.value)
             }
           />
         </p>
@@ -36,11 +20,16 @@ export default function UserInput({ defaultParameters, onParameterChange }) {
           <input
             type='number'
             id='monthly-investment'
+            className='input-with-select'
             value={parameters.annualInvestment}
             onChange={(event) =>
-              handleParameterChange('annualInvestment', event)
+              onParameterChange('annualInvestment', event.target.value)
             }
           />
+          <select className='input-with-select'>
+            <option>Mensal</option>
+            <option>Anual</option>
+          </select>
         </p>
       </div>
       <div className='input-group'>
@@ -49,9 +38,16 @@ export default function UserInput({ defaultParameters, onParameterChange }) {
           <input
             type='number'
             id='interest'
+            className='input-with-select'
             value={parameters.expectedReturn}
-            onChange={(event) => handleParameterChange('expectedReturn', event)}
+            onChange={(event) =>
+              onParameterChange('expectedReturn', event.target.value)
+            }
           />
+          <select className='input-with-select'>
+            <option>Mensal</option>
+            <option>Anual</option>
+          </select>
         </p>
         <p>
           <label>Período</label>
@@ -59,7 +55,9 @@ export default function UserInput({ defaultParameters, onParameterChange }) {
             type='number'
             id='period'
             value={parameters.duration}
-            onChange={(event) => handleParameterChange('duration', event)}
+            onChange={(event) =>
+              onParameterChange('duration', event.target.value)
+            }
           />
         </p>
       </div>

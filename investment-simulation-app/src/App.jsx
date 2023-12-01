@@ -14,13 +14,19 @@ const DEFAULT_PARAMETERS = {
 function App() {
   const [parameters, setParameters] = useState(DEFAULT_PARAMETERS);
 
+  const inputIsValid = parameters.duration > 0;
+
   function handleParamenterChange(parameterName, parameterValue) {
     setParameters((prevParameters) => {
       const updatedParameters = {
         ...parameters,
       };
 
-      updatedParameters[parameterName] = parameterValue;
+      let value = Number(
+        parameterValue.replace('R$ ', '').replace('.', '').replace(',', '')
+      );
+
+      updatedParameters[parameterName] = value;
       return updatedParameters;
     });
   }
@@ -29,10 +35,13 @@ function App() {
     <>
       <Header />
       <UserInput
-        defaultParameters={DEFAULT_PARAMETERS}
+        parameters={parameters}
         onParameterChange={handleParamenterChange}
       />
-      <Result parameters={parameters} />
+      {!inputIsValid && (
+        <p className='center'>O campo duração deve ser maior que 0.</p>
+      )}
+      {inputIsValid && <Result parameters={parameters} />}
     </>
   );
 }

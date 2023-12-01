@@ -54,14 +54,19 @@ body {
   text-transform: uppercase;
 }
 
-#user-input input {
-  width: 100%;
+#user-input input, select {
   padding: 0.5rem;
   border: 1px solid #76c0ae;
   border-radius: 0.25rem;
   background-color: transparent;
   color: #c2e9e0;
   font-size: 1rem;
+}
+
+.input-with-select {
+  display: inline-block;
+  align-items: center;
+  width: 50%;
 }
 
 #result {
